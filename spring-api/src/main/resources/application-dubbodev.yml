@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: ld-api-integral
+sharding:
+  jdbc:
+    datasource:
+      names: testwrite,testread
+      testwrite:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/mytest?useSSL=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&userAffectRows=true
+        username: root
+        password: 123456
+      testread:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/mytest?useSSL=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&userAffectRows=true
+        username: root
+        password: 123456
+    config:
+      sharding:
+        master-slave-rules:
+          ds_0:
+            master-data-source-name: testwrite
+            slave-data-source-names: testread
+        props:
+          sql:
+            show: true
+dubbo:
+  scan:
+    basePackages: com.spring
+  application:
+    id: spring-test-api
+    name: spring-test-cos
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+    client: curator
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 10358
+    threads: 200
+#  provider:
+#    version: 1.0.0

@@ -1,0 +1,19 @@
+# dubbo配置
+dubbo:
+  scan:
+    basePackages: com.spring
+  application:
+    id: spring-test
+    name: spring-test-provider
+    qos-port: 30841
+  registry:
+    id: integral-provider
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+#    client: curator
+#    server: true
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20798
+    threads: 200

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>spring-base</artifactId>
+		<groupId>com.test</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+
+	<groupId>com.test</groupId>
+	<artifactId>spring-test-provider</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-test-provider</name>
+	<description>provider</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.test</groupId>
+			<artifactId>spring-test-dao</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.test</groupId>
+			<artifactId>spring-test-service</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.test</groupId>
+			<artifactId>spring-test-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.boot</groupId>
+			<artifactId>dubbo-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>ld_base_wxauth_provider</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.spring.test.provider.SpringTestProviderApplication</mainClass>
+					<includes>
+						<include>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+						</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<!--打包时排除resources文件夹中配置文件-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<!--指定运行的主类 这样可以用java -jar 运行-->
+							<mainClass>com.spring.test.provider.SpringTestProviderApplication</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>./</classpathPrefix>
+						</manifest>
+					</archive>
+					<excludes>
+						<exclude>/*.yml</exclude>
+						<exclude>/*.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<!-- 执行mvn dependency:copy-dependencies 所有依赖的jar将提取到target/lib目录-->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.build.directory}/lib</outputDirectory>
+					<stripVersion>false</stripVersion>
+					<!--只提取编译级别的包，排除如 spring-boot-devtools,spring-boot-starter-test-->
+					<includeScope>compile</includeScope>
+				</configuration>
+			</plugin>
+			<!-- 编译跳过测试类 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-thirdparty</id>
+			<url>http://xxx.xxx.xx.xxx:8081/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</distributionManagement>
+
+</project>
