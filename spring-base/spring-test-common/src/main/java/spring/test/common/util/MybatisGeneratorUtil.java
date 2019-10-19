@@ -56,7 +56,6 @@ public class MybatisGeneratorUtil {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig()
-                //.setSuperControllerClass("com.laidian.ldcommon.base.BaseController")
                 // 表前缀
                 .setTablePrefix((String) map.get("tablePrefix"))
                 // 表名生成策略

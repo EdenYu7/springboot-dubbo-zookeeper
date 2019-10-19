@@ -138,21 +138,8 @@
 	</dependencies>
 
 	<build>
-		<finalName>ld-api-auth</finalName>
+		<finalName>api-test</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.laidian.auth.LdApiAuthApplication</mainClass>
-					<includes>
-						<include>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-						</include>
-					</includes>
-				</configuration>
-			</plugin>
 			<!--打包时排除resources文件夹中配置文件-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
