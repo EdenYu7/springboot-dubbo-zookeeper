@@ -40,7 +40,7 @@
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang.version>2.6</commons-lang.version>
         <alipay-dev.version>2018.09.18</alipay-dev.version>
-        <com.alibaba.version>2.6.2</com.alibaba.version>
+        <com.alibaba.version>2.6.12</com.alibaba.version>
         <artifactId.version>1.8.6</artifactId.version>
         <swagger.version>2.7.0</swagger.version>
         <redisson.version>3.8.2</redisson.version>
